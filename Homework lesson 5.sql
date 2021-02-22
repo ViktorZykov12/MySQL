@@ -105,5 +105,17 @@ INSERT INTO new_new_users (name, birthday) VALUES
  
  SELECT avg(TIMESTAMPDIFF(YEAR, birthday, NOW())) AS avg_age FROM new_new_users;
  
+--Подсчитайте количество дней рождения, которые приходятся на каждый из дней недели.
+Следует учесть, что необходимы дни недели текущего года, а не года рождения.
+
+SELECT 
+	DATE_FORMAT(date(CONCAT_WS('-',year(now()), MONTH(birthday), day(birthday))), '%W') as day,
+	COUNT(*) as total
+FROM NEW_NEW_USERS
+group by 
+	DAY 
+ORDER by
+	total desc;
+
 
 	
