@@ -70,7 +70,7 @@ select * from profiles limit 10;
 select * from likes limit 10;
 
 select
-	(select gender from profiles where user_id = likes.target_id) as gender,
+	(select gender from profiles where user_id = likes.user_id) as gender,
 	count(*) as likes_count
 from likes
 group by gender;
@@ -78,8 +78,12 @@ group by gender;
 
 -- 4. Подсчитать количество лайков которые получили 10 самых молодых пользователей. 
 
-select count(*) from likes where user_id in 
-(select * from (select user_id from profiles order by birthday desc limit 10) as birthdays);
+SELECT SUM(likes_total) FROM  
+  (SELECT 
+    (SELECT COUNT(*) FROM likes WHERE target_id = profiles.user_id AND target_type_id = 2) AS likes_total  
+    FROM profiles 
+    ORDER BY birthday 
+    DESC LIMIT 10) AS user_likes;
 
  
 
