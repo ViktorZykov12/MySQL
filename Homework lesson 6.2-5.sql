@@ -65,9 +65,12 @@ ALTER TABLE likes
       ON DELETE cascade;
      
 -- 3. Определить кто больше поставил лайков (всего) - мужчины или женщины?
-     
+select * from profiles limit 10;
+
+select * from likes limit 10;
+
 select
-	(select gender from profiles where user_id = likes.user_id) as gender,
+	(select gender from profiles where user_id = likes.target_id) as gender,
 	count(*) as likes_count
 from likes
 group by gender;
