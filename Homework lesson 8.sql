@@ -31,10 +31,12 @@ ORDER BY p.birthday DESC LIMIT 10) user_likes;
 -- использовании социальной сети
 -- (критерии активности необходимо определить самостоятельно).
 
-select user_id, users.first_name, users.last_name, count(posts.id) as active  
+
+
+select user_id, users.first_name, users.last_name, count(posts.user_id) as active  
 	from 
 		users  
 	join 
 		posts on users.id = posts.user_id
 group by user_id 
-order by active desc limit 10;
+order by active limit 10;
